@@ -1,0 +1,37 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      # Use the service name 'db' as the hostname for the database connection
+      - DATABASE_URL=postgresql://pharma_user:pharma_password@db:5432/pharma_db
+    depends_on:
+      - db
+    volumes:
+      - ./public/uploads:/app/public/uploads
+    networks:
+      - pharma_network
+
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=pharma_user
+      - POSTGRES_PASSWORD=pharma_password
+      - POSTGRES_DB=pharma_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - pharma_network
+
+volumes:
+  postgres_data:
+
+
+networks:
+  pharma_network:
