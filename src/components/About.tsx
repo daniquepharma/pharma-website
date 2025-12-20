@@ -2,7 +2,7 @@
 
 import Section from "./Section";
 import { motion } from "framer-motion";
-import { Target, History, Globe } from "lucide-react";
+import { Target, History, Globe, FileText } from "lucide-react";
 
 export default function About() {
     return (
@@ -57,6 +57,23 @@ export default function About() {
                                 <p className="text-slate-400 text-sm leading-relaxed">
                                     Serving healthcare professionals and patients with a growing portfolio of high-quality formulations.
                                 </p>
+                            </div>
+                        </div>
+
+                        <div className="flex gap-4">
+                            <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                                <FileText size={24} />
+                            </div>
+                            <div>
+                                <h4 className="text-xl font-bold text-white mb-2">Our License</h4>
+                                <a
+                                    href="/DANIQ 1.pdf"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-primary hover:text-primary/80 transition-colors text-sm font-medium flex items-center gap-2"
+                                >
+                                    View Verified License
+                                </a>
                             </div>
                         </div>
                     </div>

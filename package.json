@@ -9,8 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@prisma/adapter-pg": "^7.1.0",
-    "@prisma/client": "^7.1.0",
+    "@prisma/adapter-pg": "^5.22.0",
+    "@prisma/client": "^5.22.0",
     "framer-motion": "^12.23.25",
     "lucide-react": "^0.556.0",
     "next": "16.0.8",
@@ -27,8 +27,12 @@
     "dotenv": "^17.2.3",
     "eslint": "^9",
     "eslint-config-next": "16.0.8",
-    "prisma": "^7.1.0",
+    "prisma": "^5.22.0",
     "tailwindcss": "^4",
     "typescript": "^5"
-  }
+  },
+  "description": "Welcome to the Danique Pharma repository! This is a modern pharmaceutical website built with Next.js, Postgres, and Docker.",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC"
 }
