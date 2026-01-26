@@ -2,7 +2,7 @@
 
 import { getOrderById } from "@/app/actions";
 import { Order, OrderItem, Product } from "@prisma/client";
-import { Search, Package, Truck, CheckCircle, Clock } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 
@@ -31,8 +31,8 @@ export default function TrackOrderForm() {
             } else {
                 setError("Order not found. Please check the ID and try again.");
             }
-        } catch (err) {
-            setError("Something went wrong. Please try again.");
+        } catch {
+            setError("Something went wrong. Please check your Order ID and try again.");
         } finally {
             setLoading(false);
         }
@@ -131,12 +131,12 @@ export default function TrackOrderForm() {
                                 <span className="text-slate-300">
                                     {item.quantity}x {item.product.name}
                                 </span>
-                                <span className="text-white font-mono">${(item.price * item.quantity).toFixed(2)}</span>
+                                <span className="text-white font-mono">₹{(item.price * item.quantity).toFixed(2)}</span>
                             </div>
                         ))}
                         <div className="flex justify-between items-center pt-4 border-t border-slate-800 font-bold">
                             <span className="text-white">Total</span>
-                            <span className="text-primary text-lg">${order.total.toFixed(2)}</span>
+                            <span className="text-primary text-lg">₹{order.total.toFixed(2)}</span>
                         </div>
                     </div>
                 </motion.div>

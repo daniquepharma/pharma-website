@@ -32,10 +32,16 @@ export default function Footer() {
                     <div>
                         <h4 className="font-heading font-bold text-lg text-white mb-6">Quick Links</h4>
                         <ul className="space-y-3">
-                            {["Home", "About Us", "Our Vision", "Products", "Contact Us"].map((item) => (
-                                <li key={item}>
-                                    <Link href="#" className="text-slate-400 hover:text-primary transition-colors text-sm">
-                                        {item}
+                            {[
+                                { name: "Home", href: "/" },
+                                { name: "About Us", href: "/about" },
+                                { name: "Our Vision", href: "/about" },
+                                { name: "Products", href: "/products" },
+                                { name: "Contact Us", href: "/contact" }
+                            ].map((item) => (
+                                <li key={item.name}>
+                                    <Link href={item.href} className="text-slate-400 hover:text-primary transition-colors text-sm">
+                                        {item.name}
                                     </Link>
                                 </li>
                             ))}
@@ -90,8 +96,8 @@ export default function Footer() {
                         © {new Date().getFullYear()} Danique Formulations. All rights reserved.
                     </p>
                     <div className="flex gap-6">
-                        <Link href="#" className="text-slate-500 hover:text-primary text-xs transition-colors">Privacy Policy</Link>
-                        <Link href="#" className="text-slate-500 hover:text-primary text-xs transition-colors">Terms of Service</Link>
+                        <Link href="/privacy" className="text-slate-500 hover:text-primary text-xs transition-colors">Privacy Policy</Link>
+                        <Link href="/terms" className="text-slate-500 hover:text-primary text-xs transition-colors">Terms of Service</Link>
                     </div>
                 </div>
             </div>

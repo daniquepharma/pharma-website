@@ -9,36 +9,97 @@ datasource db {
   provider = "postgresql"
 }
 
+// User Model
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  name          String
+  password      String?   // Null for Google OAuth users
+  phone         String?
+  image         String?   // Profile picture from Google
+  emailVerified DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  // Relations
+  orders        Order[]
+  addresses     Address[]
+  wishlist      WishlistItem[]
+}
+
+// Address Model
+model Address {
+  id           String   @id @default(uuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  fullName     String
+  phone        String
+  addressLine1 String
+  addressLine2 String?
+  city         String
+  state        String
+  pincode      String
+  isDefault    Boolean  @default(false)
+  
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+// Wishlist Model
+model WishlistItem {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  
+  @@unique([userId, productId])
+}
+
+// Product Model
 model Product {
-  id          String   @id @default(uuid())
+  id          String         @id @default(uuid())
   name        String
   description String
   price       Float
   stock       Int
   category    String
   images      String[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
   orderItems  OrderItem[]
+  wishlist    WishlistItem[]
 }
 
+// Order Model - Updated to link with users
 model Order {
   id            String      @id @default(uuid())
+  userId        String?
+  user          User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+  
+  // Guest checkout fields
   customerName  String
   customerEmail String
+  customerPhone String?
   address       String
+  
   total         Float
   status        String      @default("PENDING")
   createdAt     DateTime    @default(now())
   items         OrderItem[]
 }
 
+// OrderItem Model
 model OrderItem {
-  id        String  @id @default(uuid())
-  orderId   String
-  order     Order   @relation(fields: [orderId], references: [id])
-  productId String
-  product   Product @relation(fields: [productId], references: [id])
-  quantity  Int
-  price     Float
+  id          String   @id @default(uuid())
+  orderId     String
+  order       Order    @relation(fields: [orderId], references: [id])
+  productId   String?
+  product     Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  productName String   @default("Unknown Product")
+  quantity    Int
+  price       Float
 }

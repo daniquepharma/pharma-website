@@ -54,7 +54,7 @@ export default function Contact() {
                     </div>
 
                     {/* Map Placeholder */}
-                    <div className="w-full h-64 rounded-2xl overflow-hidden grayscale border border-white/10 relative bg-slate-900">
+                    <div className="w-full h-96 rounded-2xl overflow-hidden grayscale border border-white/10 relative bg-slate-900">
                         {/* Google Maps Embed would go here. Using a placeholder for now as requested by user status "ALREADY REGISTERED ON GOOGLE MAPS" */}
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3503.626777611599!2d77.0682!3d28.5805!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1b1a1a1a1a1a%3A0x1a1a1a1a1a1a1a1a!2sVardhman%20Jaypee%20Plaza!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"

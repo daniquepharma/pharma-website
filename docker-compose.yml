@@ -4,10 +4,16 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3001:3000"
     environment:
       # Use the service name 'db' as the hostname for the database connection
-      - DATABASE_URL=postgresql://pharma_user:pharma_password@db:5432/pharma_db
+      # Override the .env DATABASE_URL to use the internal docker network hostname 'db'
+      - DATABASE_URL=postgresql://pharma_user:${POSTGRES_PASSWORD}@db:5432/pharma_db
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - NEXTAUTH_URL=${NEXTAUTH_URL}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+    command: sh -c "npx --yes prisma migrate deploy && node server.js"
     depends_on:
       - db
     volumes:
@@ -20,7 +26,7 @@ services:
     restart: always
     environment:
       - POSTGRES_USER=pharma_user
-      - POSTGRES_PASSWORD=pharma_password
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=pharma_db
     ports:
       - "5433:5432"

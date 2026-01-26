@@ -17,9 +17,14 @@ const lato = Lato({
 export const metadata: Metadata = {
   title: "Danique Formulations | Healing Hands, Caring Hearts",
   description: "At the forefront of science and compassion, transforming lives through innovative healthcare.",
+  icons: {
+    icon: "/uploads/logo/company-logo.png",
+    apple: "/uploads/logo/company-logo.png",
+  },
 };
 
 import { CartProvider } from "@/context/CartContext";
+import AuthProvider from "@/components/AuthProvider";
 
 export default function RootLayout({
   children,
@@ -31,7 +36,9 @@ export default function RootLayout({
       <body
         className={`${roboto.variable} ${lato.variable} antialiased bg-slate-950 text-slate-200`}
       >
-        <CartProvider>{children}</CartProvider>
+        <AuthProvider>
+          <CartProvider>{children}</CartProvider>
+        </AuthProvider>
       </body>
     </html>
   );

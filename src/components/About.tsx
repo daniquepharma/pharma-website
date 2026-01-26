@@ -1,106 +1,180 @@
 "use client";
 
-import Section from "./Section";
 import { motion } from "framer-motion";
-import { Target, History, Globe } from "lucide-react";
+import { Building2, Target, Eye, Heart, Pill, Package } from "lucide-react";
 
 export default function About() {
     return (
-        <Section id="about" className="bg-slate-950 border-t border-white/5">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                {/* Text Content */}
-                <div className="space-y-8">
-                    <div>
-                        <h2 className="text-primary font-medium tracking-wider uppercase mb-2">About Us</h2>
-                        <h3 className="font-heading text-4xl md:text-5xl font-bold text-white mb-6">
-                            Empowering Health, <br /> Enriching Lives.
-                        </h3>
-                        <p className="text-slate-400 text-lg leading-relaxed">
-                            We are dedicated to transforming lives through innovative, high-quality, and affordable medicines.
-                            From research and development to patient care, every step we take is guided by one purpose — empowering health.
+        <div className="bg-slate-950">
+            {/* Hero Section */}
+            <section className="relative py-20 overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent"></div>
+                <div className="max-w-6xl mx-auto px-4 relative">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-center"
+                    >
+                        <h1 className="text-4xl md:text-6xl font-heading font-bold text-white mb-6">
+                            About <span className="text-primary">DANIQUE FORMULATIONS</span>
+                        </h1>
+                        <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+                            Our tag &quot;Healing Hands, Caring Hearts&quot; is not just a slogan; it&apos;s our promise of compassion and transforming lives through innovative healthcare.
+                        </p>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* History Section */}
+            <section className="py-16 bg-slate-900">
+                <div className="max-w-6xl mx-auto px-4">
+                    <div className="flex items-center gap-4 mb-8">
+                        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                            <Building2 className="text-primary" size={24} />
+                        </div>
+                        <h2 className="text-3xl font-heading font-bold text-white">Our History</h2>
+                    </div>
+                    <div className="space-y-6 text-slate-300 leading-relaxed">
+                        <p className="text-lg">
+                            Established with a clear vision – to make quality medicines accessible and affordable for all. What started as a mission-driven initiative has grown into a trusted name in pharmaceutical excellence.
+                        </p>
+                        <p className="text-lg">
+                            The name &quot;Danique&quot; means &quot;God is my Judge,&quot; reflecting our core principle that our work is ultimately answered to a higher calling.ess the most pressing healthcare needs. Over time, our commitment to quality and innovation helped us build a strong foundation in the pharmaceutical industry.
+                        </p>
+                        <p className="text-lg">
+                            Through dedicated efforts, we successfully expanded operations beyond our regional presence, reaching pan-India and international markets. Each milestone reflects our unwavering dedication to healthcare advancement.
+                        </p>
+                        <p className="text-lg">
+                            Today, we stand as a progressive pharmaceutical company, serving healthcare professionals and patients with high-quality, affordable, and innovative medical solutions that make a real difference in people&apos;s lives.
                         </p>
                     </div>
+                </div>
+            </section>
 
-                    <div className="space-y-6">
-                        <div className="flex gap-4">
-                            <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
-                                <History size={24} />
+            {/* Vision & Mission */}
+            <section className="py-16">
+                <div className="max-w-6xl mx-auto px-4">
+                    <div className="grid md:grid-cols-2 gap-8">
+                        {/* Vision */}
+                        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8">
+                            <div className="flex items-center gap-4 mb-6">
+                                <div className="w-12 h-12 bg-blue-500/10 rounded-full flex items-center justify-center">
+                                    <Eye className="text-blue-500" size={24} />
+                                </div>
+                                <h3 className="text-2xl font-bold text-white">Our Vision</h3>
                             </div>
-                            <div>
-                                <h4 className="text-xl font-bold text-white mb-2">Our History</h4>
-                                <p className="text-slate-400 text-sm leading-relaxed">
-                                    Established in 2010, starting with a clear vision to make quality medicines accessible.
-                                    Expanded from regional operations to a pan-India presence.
+                            <p className="text-primary font-semibold mb-4 text-lg">
+                                &quot;To be a globally respected pharmaceutical company, recognized for delivering innovative, affordable, and high-quality healthcare solutions that improve lives.&quot;
+                            </p>
+                            <div className="space-y-3 text-slate-300">
+                                <p className="flex items-start gap-2">
+                                    <span className="text-primary mt-1">•</span>
+                                    <span>Lead through research, innovation, and excellence in healthcare</span>
+                                </p>
+                                <p className="flex items-start gap-2">
+                                    <span className="text-primary mt-1">•</span>
+                                    <span>Make medicines accessible and affordable for every community we serve</span>
+                                </p>
+                                <p className="flex items-start gap-2">
+                                    <span className="text-primary mt-1">•</span>
+                                    <span>Build long-term trust with healthcare professionals, patients, and partners</span>
+                                </p>
+                                <p className="flex items-start gap-2">
+                                    <span className="text-primary mt-1">•</span>
+                                    <span>Contribute towards a healthier and happier world through sustainable growth and ethical practices</span>
                                 </p>
                             </div>
                         </div>
 
-                        <div className="flex gap-4">
-                            <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
-                                <Target size={24} />
+                        {/* Mission */}
+                        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8">
+                            <div className="flex items-center gap-4 mb-6">
+                                <div className="w-12 h-12 bg-green-500/10 rounded-full flex items-center justify-center">
+                                    <Target className="text-green-500" size={24} />
+                                </div>
+                                <h3 className="text-2xl font-bold text-white">Our Mission</h3>
                             </div>
-                            <div>
-                                <h4 className="text-xl font-bold text-white mb-2">Our Vision</h4>
-                                <p className="text-slate-400 text-sm leading-relaxed">
-                                    To be a globally respected pharmaceutical company, listening to the needs of every community
-                                    and contributing to a healthier world through ethical practices.
+                            <p className="text-primary font-semibold mb-4 text-lg">
+                                &quot;To deliver innovative, affordable, and high-quality healthcare solutions that transform lives globally.&quot;
+                            </p>
+                            <div className="space-y-3 text-slate-300">
+                                <p className="flex items-start gap-2">
+                                    <span className="text-primary mt-1">•</span>
+                                    <span>Lead through research, innovation, and excellence in healthcare</span>
                                 </p>
-                            </div>
-                        </div>
-
-                        <div className="flex gap-4">
-                            <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
-                                <Globe size={24} />
-                            </div>
-                            <div>
-                                <h4 className="text-xl font-bold text-white mb-2">Global Reach</h4>
-                                <p className="text-slate-400 text-sm leading-relaxed">
-                                    Serving healthcare professionals and patients with a growing portfolio of high-quality formulations.
+                                <p className="flex items-start gap-2">
+                                    <span className="text-primary mt-1">•</span>
+                                    <span>Make medicines accessible and affordable for every community we serve</span>
+                                </p>
+                                <p className="flex items-start gap-2">
+                                    <span className="text-primary mt-1">•</span>
+                                    <span>Build long-term trust with healthcare professionals, patients, and partners</span>
+                                </p>
+                                <p className="flex items-start gap-2">
+                                    <span className="text-primary mt-1">•</span>
+                                    <span>Contribute towards a healthier and happier world through sustainable growth and ethical practices</span>
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                {/* Visual/Stats */}
-                <div className="relative">
-                    {/* Abstract visual representation instead of image since gen failed */}
-                    <div className="relative aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800 border border-white/10 p-8 flex flex-col justify-between">
-                        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(68,68,68,.2)_50%,transparent_75%,transparent_100%)] bg-[length:250%_250%,100%_100%] animate-[shine_3s_infinite]" />
+            {/* Therapeutic Areas & Products */}
+            <section className="py-16 bg-slate-900">
+                <div className="max-w-6xl mx-auto px-4">
+                    <div className="grid md:grid-cols-2 gap-8 mb-12">
+                        {/* Therapeutic Areas */}
+                        <div className="bg-slate-950 border border-slate-800 rounded-2xl p-8">
+                            <div className="flex items-center gap-4 mb-6">
+                                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                                    <Heart className="text-primary" size={24} />
+                                </div>
+                                <h3 className="text-2xl font-bold text-white">Therapeutic Areas</h3>
+                            </div>
+                            <div className="space-y-3">
+                                {['Orthopedic', 'Gynecology', 'Physician', 'Other Specialty'].map((area) => (
+                                    <div key={area} className="flex items-center gap-3 p-3 bg-slate-900 rounded-lg">
+                                        <div className="w-2 h-2 bg-primary rounded-full"></div>
+                                        <span className="text-slate-200 font-medium">{area}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
 
-                        <div className="grid grid-cols-2 gap-4 h-full">
-                            <motion.div
-                                whileHover={{ scale: 1.05 }}
-                                className="bg-white/5 backdrop-blur-sm rounded-xl p-6 flex flex-col justify-center items-center border border-white/5"
-                            >
-                                <span className="text-4xl font-bold text-primary mb-2">15+</span>
-                                <span className="text-slate-400 text-xs uppercase tracking-wide">Years of Excellence</span>
-                            </motion.div>
-                            <motion.div
-                                whileHover={{ scale: 1.05 }}
-                                className="bg-white/5 backdrop-blur-sm rounded-xl p-6 flex flex-col justify-center items-center border border-white/5 mt-8"
-                            >
-                                <span className="text-4xl font-bold text-white mb-2">4+</span>
-                                <span className="text-slate-400 text-xs uppercase tracking-wide">Specialities</span>
-                            </motion.div>
-                            <motion.div
-                                whileHover={{ scale: 1.05 }}
-                                className="bg-white/5 backdrop-blur-sm rounded-xl p-6 flex flex-col justify-center items-center border border-white/5 -mt-8"
-                            >
-                                <span className="text-4xl font-bold text-white mb-2">50+</span>
-                                <span className="text-slate-400 text-xs uppercase tracking-wide">Products</span>
-                            </motion.div>
-                            <motion.div
-                                whileHover={{ scale: 1.05 }}
-                                className="bg-white/5 backdrop-blur-sm rounded-xl p-6 flex flex-col justify-center items-center border border-white/5"
-                            >
-                                <span className="text-4xl font-bold text-primary mb-2">Pan-India</span>
-                                <span className="text-slate-400 text-xs uppercase tracking-wide">Presence</span>
-                            </motion.div>
+                        {/* Product Categories */}
+                        <div className="bg-slate-950 border border-slate-800 rounded-2xl p-8">
+                            <div className="flex items-center gap-4 mb-6">
+                                <div className="w-12 h-12 bg-orange-500/10 rounded-full flex items-center justify-center">
+                                    <Package className="text-orange-500" size={24} />
+                                </div>
+                                <h3 className="text-2xl font-bold text-white">Product Categories</h3>
+                            </div>
+                            <div className="space-y-3">
+                                {['Tablets', 'Capsules', 'Syrups', 'Injections', 'Capsule Gel'].map((category) => (
+                                    <div key={category} className="flex items-center gap-3 p-3 bg-slate-900 rounded-lg">
+                                        <Pill className="text-orange-500" size={18} />
+                                        <span className="text-slate-200 font-medium">{category}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Featured Products */}
+                    <div className="bg-slate-950 border border-slate-800 rounded-2xl p-8">
+                        <h3 className="text-2xl font-bold text-white mb-6">Featured Products</h3>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {['SLATY-OD', 'WELLAROZ FORTE', 'DANIQUE D3 60K', 'PENTRYP-NT'].map((product) => (
+                                <div key={product} className="bg-slate-900 p-4 rounded-lg text-center">
+                                    <Pill className="text-primary mx-auto mb-2" size={24} />
+                                    <p className="text-slate-200 font-medium text-sm">{product}</p>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
-            </div>
-        </Section>
+            </section>
+        </div>
     );
 }
