@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Suspense } from "react";
 import Link from "next/link";
 import { Menu, X, User, LogOut, Package, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -16,7 +16,7 @@ const navLinks = [
 import { useCart } from "@/context/CartContext";
 import { ShoppingCart } from "lucide-react";
 
-export default function Navbar() {
+function NavbarContent() {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [userMenuOpen, setUserMenuOpen] = useState(false);
@@ -357,5 +357,13 @@ export default function Navbar() {
                 )}
             </AnimatePresence>
         </nav>
+    );
+}
+
+export default function Navbar() {
+    return (
+        <Suspense fallback={<nav className="fixed top-0 left-0 right-0 z-50 h-20 bg-slate-950/80 backdrop-blur-md border-b border-white/5 shadow-lg" />}>
+            <NavbarContent />
+        </Suspense>
     );
 }

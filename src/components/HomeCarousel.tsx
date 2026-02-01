@@ -6,18 +6,18 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const images = [
-    "/home_carasoul/ChatGPT Image Aug 20, 2025, 10_53_57 PM.png",
-    "/home_carasoul/Pharmaceutical Production Line in Action.png",
-    "/home_carasoul/ChatGPT Image Aug 20, 2025, 11_04_18 PM.png",
-    "/home_carasoul/Scattered Tablets on Smooth Surface.png",
-    "/home_carasoul/pharma-workers-laboratory.png",
-    "/home_carasoul/2017-07-14T131808Z_1005925074_RC1B53E743F0_RTRMADP_3_INDIA-HEALTH.jpeg",
-    "/home_carasoul/IMG-20250821-WA0007.jpg",
-    "/home_carasoul/IMG-20250821-WA0008.jpg",
-    "/home_carasoul/IMG-20250821-WA0009.jpg",
-    "/home_carasoul/Pharmaceutical-Manufacturing-Associate.jpg",
-    "/home_carasoul/Q5DB76CPRVJYRN7B32LK43MBRI.jpg",
-    "/home_carasoul/shutterstock_325813193.jpg",
+    "/home_carasoul/slide-1.png",
+    "/home_carasoul/slide-2.png",
+    "/home_carasoul/slide-3.png",
+    "/home_carasoul/slide-4.png",
+    "/home_carasoul/slide-5.png",
+    "/home_carasoul/slide-6.jpeg",
+    "/home_carasoul/slide-7.jpg",
+    "/home_carasoul/slide-8.jpg",
+    "/home_carasoul/slide-9.jpg",
+    "/home_carasoul/slide-10.jpg",
+    "/home_carasoul/slide-11.jpg",
+    "/home_carasoul/slide-12.jpg",
 ];
 
 const texts = [
