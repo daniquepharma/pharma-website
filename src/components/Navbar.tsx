@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef, Suspense } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X, User, LogOut, Package, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSession, signOut } from "next-auth/react";
@@ -79,10 +80,13 @@ function NavbarContent() {
                 <div className="flex justify-between items-center h-20">
                     <div className="flex-shrink-0 flex items-center">
                         <Link href="/" className="flex items-center gap-3 group">
-                            <img
+                            <Image
                                 src="/logo.png"
                                 alt="DANIQUE FORMULATIONS Logo"
+                                width={180}
+                                height={48}
                                 className="h-12 w-auto object-contain group-hover:scale-105 transition-transform"
+                                priority
                             />
                             <span className="font-heading font-bold text-xl tracking-wide text-white group-hover:text-primary transition-colors">
                                 DANIQUE <span className="text-primary">FORMULATIONS</span>
