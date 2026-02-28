@@ -60,7 +60,13 @@ COPY --from=builder /app/prisma.config.ts ./prisma.config.ts
 # This is critical for prisma migrate to work in production
 RUN npm install prisma@7.1.0 dotenv@17.2.3
 
-USER nextjs
+# Create the uploads directory and ensure nextjs owns it
+# This prevents EACCES errors when Railway mounts the Volume on top of it
+RUN mkdir -p /app/public/uploads
+RUN chown -R nextjs:nodejs /app/public
+
+# Run as root so start.sh can chown the mounted Railway Volume!
+# We will use su-exec or similar if needed later, but standard node handles this.
 
 EXPOSE 3000
 
