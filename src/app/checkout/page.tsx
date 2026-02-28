@@ -4,6 +4,7 @@ import { useCart } from "@/context/CartContext";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useState, useEffect, Suspense } from "react";
+import { useRazorpay } from "@/hooks/useRazorpay";
 import Link from "next/link";
 import { Trash2, ArrowLeft, CheckCircle, Plus, MapPin } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -81,6 +82,12 @@ export default function CheckoutPage() {
     }
 
     async function handleSaveNewAddress() {
+        // Validate required fields
+        if (!newAddress.fullName || !newAddress.phone || !newAddress.addressLine1 || !newAddress.city || !newAddress.state || !newAddress.pincode) {
+            alert("Please fill in all required fields.");
+            return;
+        }
+
         try {
             const response = await fetch("/api/user/addresses", {
                 method: "POST",
@@ -104,11 +111,53 @@ export default function CheckoutPage() {
                     pincode: "",
                 });
             } else {
-                alert("Failed to save address");
+                const data = await response.json();
+                alert(data.error || "Failed to save address");
             }
         } catch (error) {
             console.error("Failed to save address:", error);
-            alert("Failed to save address");
+            alert("Failed to save address. Please try again.");
+        }
+    }
+
+    const isRazorpayLoaded = useRazorpay();
+
+    async function handlePaymentSuccess(response: any, orderData: any) {
+        try {
+            const result = await fetch("/api/orders/create", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    addressId: selectedAddressId,
+                    address: orderData.address,
+                    phone: orderData.phone,
+                    total: cartTotal,
+                    items: cart.map(item => ({
+                        productId: item.id,
+                        productName: item.name,
+                        quantity: item.quantity,
+                        price: item.price,
+                    })),
+                    paymentDetails: {
+                        razorpay_order_id: response.razorpay_order_id,
+                        razorpay_payment_id: response.razorpay_payment_id,
+                        razorpay_signature: response.razorpay_signature,
+                    }
+                }),
+            });
+
+            if (result.ok) {
+                const data = await result.json();
+                setOrderId(data.orderId);
+                clearCart();
+            } else {
+                alert("Payment verification failed");
+            }
+        } catch (error) {
+            console.error("Payment success handling error", error);
+            alert("Something went wrong processing your payment");
+        } finally {
+            setIsSubmitting(false);
         }
     }
 
@@ -120,6 +169,11 @@ export default function CheckoutPage() {
             return;
         }
 
+        if (!isRazorpayLoaded) {
+            alert("Razorpay SDK failed to load. Please check your internet connection.");
+            return;
+        }
+
         setIsSubmitting(true);
 
         const selectedAddress = addresses.find(a => a.id === selectedAddressId);
@@ -128,34 +182,59 @@ export default function CheckoutPage() {
         const fullAddress = `${selectedAddress.addressLine1}, ${selectedAddress.addressLine2 ? selectedAddress.addressLine2 + ', ' : ''}${selectedAddress.city}, ${selectedAddress.state} - ${selectedAddress.pincode}`;
 
         try {
-            const response = await fetch("/api/orders/create", {
+            // 1. Create Razorpay Order
+            const orderRes = await fetch("/api/razorpay/order", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    addressId: selectedAddressId,
-                    address: fullAddress,
-                    phone: selectedAddress.phone,
-                    total: cartTotal,
-                    items: cart.map(item => ({
-                        productId: item.id,
-                        productName: item.name,
-                        quantity: item.quantity,
-                        price: item.price,
-                    })),
+                    amount: cartTotal,
+                    currency: "INR",
                 }),
             });
 
-            if (response.ok) {
-                const data = await response.json();
-                setOrderId(data.orderId);
-                clearCart();
-            } else {
-                throw new Error("Order creation failed");
+            if (!orderRes.ok) {
+                alert("Failed to create order");
+                setIsSubmitting(false);
+                return;
             }
+
+            const order = await orderRes.json();
+
+            // 2. Open Razorpay Checkout
+            const options = {
+                key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, // We need to expose this
+                amount: order.amount,
+                currency: order.currency,
+                name: "Danique Pharma",
+                description: "Purchase from Danique Pharma",
+                order_id: order.id,
+                handler: function (response: any) {
+                    handlePaymentSuccess(response, {
+                        address: fullAddress,
+                        phone: selectedAddress.phone,
+                    });
+                },
+                prefill: {
+                    name: session?.user?.name || "",
+                    email: session?.user?.email || "",
+                    contact: selectedAddress.phone,
+                },
+                theme: {
+                    color: "#0f172a", // slate-900
+                },
+            };
+
+            const rzp1 = new (window as any).Razorpay(options);
+            rzp1.open();
+
+            rzp1.on('payment.failed', function (response: any) {
+                alert(response.error.description);
+                setIsSubmitting(false);
+            });
+
         } catch (error) {
-            console.error("Order failed", error);
+            console.error("Payment initiation failed", error);
             alert("Something went wrong. Please try again.");
-        } finally {
             setIsSubmitting(false);
         }
     }
@@ -193,12 +272,6 @@ export default function CheckoutPage() {
                                 <span className="text-primary font-mono">{orderId.slice(0, 8)}</span>
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                                <Link
-                                    href={`/track-order?id=${orderId}`}
-                                    className="bg-primary text-slate-950 font-bold px-8 py-3 rounded-lg hover:bg-primary/90 transition-colors"
-                                >
-                                    Track Order
-                                </Link>
                                 <Link
                                     href="/products"
                                     className="bg-slate-800 text-white font-bold px-8 py-3 rounded-lg hover:bg-slate-700 transition-colors"
@@ -256,9 +329,9 @@ export default function CheckoutPage() {
 
                     <h1 className="text-4xl font-bold text-white mb-8">Checkout</h1>
 
-                    <div className="grid lg:grid-cols-3 gap-8">
+                    <div className="grid lg:grid-cols-3 gap-8 flex-col-reverse lg:flex-row">
                         {/* Address Selection / Form */}
-                        <div className="lg:col-span-2 space-y-6">
+                        <div className="lg:col-span-2 space-y-6 order-2 lg:order-1">
                             {/* Saved Addresses */}
                             {!showNewAddressForm && addresses.length > 0 && (
                                 <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
@@ -328,7 +401,7 @@ export default function CheckoutPage() {
                                         )}
                                     </div>
                                     <div className="space-y-4">
-                                        <div className="grid md:grid-cols-2 gap-4">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div>
                                                 <label className="block text-sm font-medium text-slate-300 mb-2">
                                                     Full Name *
@@ -384,7 +457,7 @@ export default function CheckoutPage() {
                                             />
                                         </div>
 
-                                        <div className="grid md:grid-cols-3 gap-4">
+                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                             <div>
                                                 <label className="block text-sm font-medium text-slate-300 mb-2">
                                                     City *
@@ -451,7 +524,7 @@ export default function CheckoutPage() {
                         </div>
 
                         {/* Order Summary */}
-                        <div className="lg:col-span-1">
+                        <div className="lg:col-span-1 order-1 lg:order-2 mb-8 lg:mb-0">
                             <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 sticky top-24">
                                 <h2 className="text-xl font-bold text-white mb-4">Order Summary</h2>
                                 <div className="space-y-4 mb-6">

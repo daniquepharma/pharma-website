@@ -122,7 +122,7 @@ export default function OrdersPage() {
                         </Link>
                         <div>
                             <h1 className="text-3xl font-bold text-white">My Orders</h1>
-                            <p className="text-slate-400">View your order history and track orders</p>
+                            <p className="text-slate-400">View your order history</p>
                         </div>
                     </div>
 
@@ -273,13 +273,7 @@ export default function OrdersPage() {
 
                                                     {/* Actions */}
                                                     <div className="flex gap-3 pt-4 border-t border-slate-800">
-                                                        <Link
-                                                            href={`/track-order?id=${order.id}`}
-                                                            className="flex-1 bg-primary text-slate-950 font-bold py-3 px-4 rounded-lg hover:bg-primary/90 transition-colors text-center"
-                                                        >
-                                                            Track Order
-                                                        </Link>
-                                                        {(order.status === "PENDING" || order.status === "CONFIRMED") && (
+                                                        {(order.status === "PENDING" || order.status === "CONFIRMED" || order.status === "PAID") && (
                                                             <button
                                                                 onClick={(e) => {
                                                                     e.stopPropagation();

@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      target: deps # Or a specific dev stage if we had one, but we can just override
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    command: npm run dev
+    # Increase memory limit for dev server if needed

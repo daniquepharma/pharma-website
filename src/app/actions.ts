@@ -4,9 +4,9 @@ import { prisma } from '@/lib/prisma'
 import { Prisma } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
-import { writeFile } from 'fs/promises'
-import { join } from 'path'
+import { uploadFileToLocal, deleteFileFromLocal } from '@/lib/upload'
 import { validateCredentials, createSession, deleteSession } from '@/lib/auth'
+import { razorpay } from "@/lib/razorpay";
 
 export async function getProducts(options?: {
     search?: string
@@ -75,15 +75,13 @@ export async function createProduct(formData: FormData) {
 
     for (const file of files) {
         if (file && file.size > 0 && file.name !== 'undefined') {
-            const bytes = await file.arrayBuffer()
-            const buffer = Buffer.from(bytes)
-
-            // Create unique filename
-            const filename = `${Date.now()}-${file.name.replace(/\s+/g, '-')}`
-            const path = join(process.cwd(), 'public/uploads', filename)
-
-            await writeFile(path, buffer)
-            images.push(`/uploads/${filename}`)
+            try {
+                const imageUrl = await uploadFileToLocal(file, "products");
+                images.push(imageUrl);
+            } catch (error) {
+                console.error("Failed to upload image locally:", error);
+                // Continue with other images or throw error based on preference
+            }
         }
     }
 
@@ -125,6 +123,21 @@ export async function deleteProduct(id: string) {
 
     // Product can be deleted if all orders are DELIVERED or CANCELLED
     // Note: OrderItems are preserved for order history due to onDelete: Restrict in schema
+
+    // 1. Get product to delete images
+    const product = await prisma.product.findUnique({
+        where: { id },
+        select: { images: true }
+    });
+
+    // 2. Delete images locally (optimistic, don't block if fails)
+    if (product?.images) {
+        for (const imageUrl of product.images) {
+            await deleteFileFromLocal(imageUrl);
+        }
+    }
+
+    // 3. Delete product from DB
     await prisma.product.delete({
         where: { id }
     })
@@ -145,15 +158,12 @@ export async function updateProduct(id: string, formData: FormData) {
 
     for (const file of files) {
         if (file && file.size > 0 && file.name !== 'undefined') {
-            const bytes = await file.arrayBuffer()
-            const buffer = Buffer.from(bytes)
-
-            // Create unique filename
-            const filename = `${Date.now()}-${file.name.replace(/\s+/g, '-')}`
-            const path = join(process.cwd(), 'public/uploads', filename)
-
-            await writeFile(path, buffer)
-            newImages.push(`/uploads/${filename}`)
+            try {
+                const imageUrl = await uploadFileToLocal(file, "products");
+                newImages.push(imageUrl);
+            } catch (error) {
+                console.error("Failed to upload image locally:", error);
+            }
         }
     }
 
@@ -189,6 +199,10 @@ export async function deleteProductImage(productId: string, imageUrl: string) {
 
     if (product) {
         const updatedImages = product.images.filter(img => img !== imageUrl)
+
+        // Delete locally
+        await deleteFileFromLocal(imageUrl);
+
         await prisma.product.update({
             where: { id: productId },
             data: { images: updatedImages }
@@ -267,6 +281,39 @@ export async function getAllOrders() {
 }
 
 export async function updateOrderStatus(orderId: string, status: string) {
+    // 1. Fetch the existing order to check payment details
+    const order = await prisma.order.findUnique({
+        where: { id: orderId },
+        select: { id: true, razorpayPaymentId: true, status: true }
+    });
+
+    if (!order) {
+        throw new Error("Order not found");
+    }
+
+    // 2. Check if we need to process a refund
+    // Only refund if moving TO Cancelled status AND it hasn't been cancelled already AND there is a payment ID
+    if (status === "CANCELLED" && order.status !== "CANCELLED" && order.razorpayPaymentId) {
+        try {
+            console.log(`Initiating refund for Order ${orderId}, Payment ${order.razorpayPaymentId}`);
+
+            // Call Razorpay Refund API
+            const refund = await razorpay.payments.refund(order.razorpayPaymentId, {
+                notes: {
+                    reason: "Order Cancelled by Admin",
+                    orderId: order.id
+                }
+            });
+
+            console.log(`Refund successful: ${refund.id}`);
+        } catch (error) {
+            console.error("Razorpay Refund Failed:", error);
+            // Decide: Stop the cancellation if refund fails? Or allow cancellation but log error?
+            // Safer to throw error so admin knows refund didn't happen.
+            throw new Error(`Failed to process refund: ${(error as any).error?.description || (error as any).message}`);
+        }
+    }
+
     await prisma.order.update({
         where: { id: orderId },
         data: { status }

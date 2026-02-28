@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth.config";
 import { prisma } from "@/lib/prisma";
+import crypto from "crypto";
 
 // Create order for logged-in user
 export async function POST(request: Request) {
@@ -12,7 +13,7 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        const { addressId, address, phone, total, items } = await request.json();
+        const { addressId, address, phone, total, items, paymentDetails } = await request.json();
 
         // Validate required fields
         if (!address || !phone || !total || !items?.length) {
@@ -20,6 +21,41 @@ export async function POST(request: Request) {
                 { error: "Missing required fields" },
                 { status: 400 }
             );
+        }
+
+        let paymentStatus = "PENDING";
+        let razorpayOrderId = null;
+        let razorpayPaymentId = null;
+        let razorpaySignature = null;
+
+        // Verify Razorpay Payment if details are provided
+        if (paymentDetails) {
+            const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = paymentDetails;
+
+            if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+                return NextResponse.json(
+                    { error: "Invalid payment details" },
+                    { status: 400 }
+                );
+            }
+
+            const body = razorpay_order_id + "|" + razorpay_payment_id;
+            const expectedSignature = crypto
+                .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET!)
+                .update(body.toString())
+                .digest("hex");
+
+            if (expectedSignature === razorpay_signature) {
+                paymentStatus = "PAID";
+                razorpayOrderId = razorpay_order_id;
+                razorpayPaymentId = razorpay_payment_id;
+                razorpaySignature = razorpay_signature;
+            } else {
+                return NextResponse.json(
+                    { error: "Invalid payment signature" },
+                    { status: 400 }
+                );
+            }
         }
 
         // Check stock availability for all items
@@ -54,7 +90,10 @@ export async function POST(request: Request) {
                     customerPhone: phone,
                     address,
                     total,
-                    status: "PENDING",
+                    status: paymentStatus,
+                    razorpayOrderId,
+                    razorpayPaymentId,
+                    razorpaySignature,
                     items: {
                         // eslint-disable-next-line @typescript-eslint/no-explicit-any
                         create: items.map((item: any) => ({

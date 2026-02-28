@@ -194,7 +194,7 @@ export default function Products({ products = [] }: { products?: Product[] }) {
                     </div>
 
                     {/* Products Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         {products.map((product, index) => (
                             <motion.div
                                 key={product.id}
@@ -202,7 +202,7 @@ export default function Products({ products = [] }: { products?: Product[] }) {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.05 }}
                                 onClick={() => router.push(`/products/${product.id}`)}
-                                className="group relative bg-slate-950 border border-white/10 rounded-2xl p-6 overflow-hidden hover:border-primary/50 transition-colors flex flex-col cursor-pointer"
+                                className="group relative bg-slate-950 border border-white/10 rounded-2xl p-4 sm:p-6 overflow-hidden hover:border-primary/50 transition-colors flex flex-col cursor-pointer w-full"
                             >
                                 <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
                                     <Pill size={80} />

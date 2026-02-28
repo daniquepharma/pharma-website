@@ -88,6 +88,12 @@ model Order {
   
   total         Float
   status        String      @default("PENDING")
+  
+  // Payment Details
+  razorpayOrderId     String?
+  razorpayPaymentId   String?
+  razorpaySignature   String?
+
   createdAt     DateTime    @default(now())
   items         OrderItem[]
 }

@@ -32,12 +32,35 @@ export async function POST(
             return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
         }
 
-        // Check if order can be cancelled (only PENDING or CONFIRMED)
-        if (order.status !== "PENDING" && order.status !== "CONFIRMED") {
+        // Check if order can be cancelled (PENDING, CONFIRMED, or PAID)
+        if (order.status !== "PENDING" && order.status !== "CONFIRMED" && order.status !== "PAID") {
             return NextResponse.json(
                 { error: `Cannot cancel order with status: ${order.status}` },
                 { status: 400 }
             );
+        }
+
+        // If PAID, try to refund first
+        if (order.status === "PAID" && (order as any).razorpayPaymentId) {
+            try {
+                // Dynamically import razorpay to avoid circular deps if any, or just import at top if fine.
+                // Better to use existing import. We need to add it to top of file.
+                // But for now, let's assume we import 'razorpay' from lib.
+                const { razorpay } = await import("@/lib/razorpay");
+
+                await razorpay.payments.refund((order as any).razorpayPaymentId, {
+                    notes: {
+                        reason: "Order Cancelled by Customer",
+                        orderId: order.id
+                    }
+                });
+            } catch (error) {
+                console.error("Refund failed:", error);
+                return NextResponse.json(
+                    { error: "Refund failed. Please contact support." },
+                    { status: 500 }
+                );
+            }
         }
 
         // Cancel order and restore stock in transaction

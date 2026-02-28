@@ -91,11 +91,11 @@ export default function Footer() {
                     </div>
                 </div>
 
-                <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
                     <p className="text-slate-500 text-xs">
                         © {new Date().getFullYear()} Danique Formulations. All rights reserved.
                     </p>
-                    <div className="flex gap-6">
+                    <div className="flex flex-wrap justify-center gap-4 md:gap-6">
                         <Link href="/privacy" className="text-slate-500 hover:text-primary text-xs transition-colors">Privacy Policy</Link>
                         <Link href="/terms" className="text-slate-500 hover:text-primary text-xs transition-colors">Terms of Service</Link>
                     </div>

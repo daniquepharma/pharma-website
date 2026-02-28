@@ -267,7 +267,7 @@ function NavbarContent() {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="md:hidden bg-slate-900 border-b border-white/10 p-4"
+                        className="md:hidden bg-slate-900 border-b border-white/10 p-4 sm:p-6"
                     >
                         <form onSubmit={handleSearch} className="flex gap-2">
                             <input
@@ -275,9 +275,9 @@ function NavbarContent() {
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 placeholder="Search products..."
-                                className="flex-1 bg-slate-800 text-white rounded-lg px-4 py-2 border border-slate-700"
+                                className="flex-1 bg-slate-800 text-white rounded-lg px-4 py-3 border border-slate-700 focus:outline-none focus:border-primary"
                             />
-                            <button type="submit" className="bg-primary text-slate-950 p-2 rounded-lg">
+                            <button type="submit" className="bg-primary text-slate-950 px-4 py-3 rounded-lg hover:bg-primary/90 transition-colors">
                                 <Search size={20} />
                             </button>
                         </form>

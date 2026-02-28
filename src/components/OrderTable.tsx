@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { updateOrderStatus } from "@/app/actions";
 import { Order, OrderItem, Product } from "@prisma/client";
-import { ChevronDown, ChevronRight, Package, Truck, CheckCircle, XCircle, Clock, AlertCircle, Edit2, Save, Search, List } from "lucide-react";
+import { ChevronDown, ChevronRight, Package, Truck, CheckCircle, XCircle, Clock, AlertCircle, Edit2, Save, Search, List, CreditCard } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -40,6 +40,7 @@ export default function OrderTable({ orders }: { orders: OrderWithItems[] }) {
     const tabs = [
         { id: "ALL", label: "All Orders", icon: List, color: "text-slate-400" },
         { id: "PENDING", label: "Pending", icon: Clock, color: "text-yellow-500" },
+        { id: "PAID", label: "Paid", icon: CreditCard, color: "text-emerald-500" },
         { id: "CONFIRMED", label: "Confirmed", icon: CheckCircle, color: "text-blue-500" },
         { id: "SHIPPED", label: "Shipped", icon: Truck, color: "text-purple-500" },
         { id: "DELIVERED", label: "Delivered", icon: Package, color: "text-green-500" },
@@ -237,7 +238,7 @@ function OrderRow({ order, onUpdate }: { order: OrderWithItems; onUpdate: () => 
                                     className="absolute right-0 top-full mt-2 w-48 rounded-xl bg-slate-900 border border-slate-700 shadow-xl overflow-hidden z-50 ring-1 ring-black ring-opacity-5"
                                 >
                                     <div className="p-1">
-                                        {["PENDING", "CONFIRMED", "SHIPPED", "DELIVERED", "CANCELLED"].map((status) => {
+                                        {["PENDING", "PAID", "CONFIRMED", "SHIPPED", "DELIVERED", "CANCELLED"].map((status) => {
                                             if (status === order.status) return null; // Don't show current status
 
                                             return (
@@ -247,9 +248,10 @@ function OrderRow({ order, onUpdate }: { order: OrderWithItems; onUpdate: () => 
                                                     className="flex w-full items-center px-3 py-2 text-sm text-slate-300 rounded-lg hover:bg-slate-800 hover:text-white transition-colors"
                                                 >
                                                     <span className={`w-2 h-2 rounded-full mr-2 ${status === "PENDING" ? "bg-yellow-500" :
-                                                        status === "CONFIRMED" ? "bg-blue-500" :
-                                                            status === "SHIPPED" ? "bg-purple-500" :
-                                                                status === "DELIVERED" ? "bg-green-500" : "bg-red-500"
+                                                        status === "PAID" ? "bg-emerald-500" :
+                                                            status === "CONFIRMED" ? "bg-blue-500" :
+                                                                status === "SHIPPED" ? "bg-purple-500" :
+                                                                    status === "DELIVERED" ? "bg-green-500" : "bg-red-500"
                                                         }`}></span>
                                                     Move to {status.charAt(0) + status.slice(1).toLowerCase()}
                                                 </button>
