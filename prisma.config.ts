@@ -9,6 +9,7 @@ export default defineConfig({
     path: "prisma/migrations",
   },
   datasource: {
-    url: env("DATABASE_URL"),
+    // Provide a dummy fallback so `npx prisma generate` doesn't crash during Docker build
+    url: process.env.DATABASE_URL || "postgresql://dummy:dummy@localhost:5432/dummy",
   },
 });
