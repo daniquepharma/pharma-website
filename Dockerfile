@@ -68,9 +68,10 @@ RUN chown -R nextjs:nodejs /app/public
 # Run as root so start.sh can chown the mounted Railway Volume!
 # We will use su-exec or similar if needed later, but standard node handles this.
 
-EXPOSE 3000
+# Start.sh relies on 'su-exec' to drop privileges after fixing permissions
+RUN apk add --no-cache su-exec
 
-ENV PORT 3000
+# Railway injects the PORT dynamically. Do not hardcode 3000.
 # set hostname to localhost
 ENV HOSTNAME "0.0.0.0"
 
