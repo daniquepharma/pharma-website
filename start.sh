@@ -9,6 +9,5 @@ echo "Running Prisma migrations..."
 npx prisma migrate deploy
 
 # Switch from root to nextjs user to run the server securely
-# Explicitly pass the PORT variable so nextjs standalone binds to Railway's expected port
-echo "Starting Next.js on port ${PORT:-3000}..."
-exec su-exec nextjs env PORT="${PORT:-3000}" node server.js
+echo "Starting Next.js..."
+exec su-exec nextjs node server.js

@@ -71,7 +71,10 @@ RUN chown -R nextjs:nodejs /app/public
 # Start.sh relies on 'su-exec' to drop privileges after fixing permissions
 RUN apk add --no-cache su-exec
 
-# Railway injects the PORT dynamically. Do not hardcode 3000.
+# Railway's proxy routes to the EXPOSE port if defined natively. Next.js defaults to 3000.
+EXPOSE 3000
+ENV PORT 3000
+
 # set hostname to localhost
 ENV HOSTNAME "0.0.0.0"
 
