@@ -80,7 +80,7 @@ function NavbarContent() {
                     <div className="flex-shrink-0 flex items-center">
                         <Link href="/" className="flex items-center gap-3 group">
                             <img
-                                src="/uploads/logo/company-logo.png"
+                                src="/logo.png"
                                 alt="DANIQUE FORMULATIONS Logo"
                                 className="h-12 w-auto object-contain group-hover:scale-105 transition-transform"
                             />

@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   title: "Danique Formulations | Healing Hands, Caring Hearts",
   description: "At the forefront of science and compassion, transforming lives through innovative healthcare.",
   icons: {
-    icon: "/uploads/logo/company-logo.png",
-    apple: "/uploads/logo/company-logo.png",
+    icon: "/logo.png",
+    apple: "/logo.png",
   },
 };
 
