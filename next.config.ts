@@ -16,7 +16,7 @@ const nextConfig: NextConfig = {
     ],
   },
   env: {
-    NEXTAUTH_URL: process.env.NEXTAUTH_URL || "https://daniquepharma.in",
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL || "https://www.daniquepharma.in",
   },
 };
 
