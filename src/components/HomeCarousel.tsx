@@ -3,6 +3,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const images = [
@@ -80,10 +81,12 @@ export default function HomeCarousel() {
                 >
                     {/* Image */}
                     <div className="absolute inset-0 bg-slate-900">
-                        <img
+                        <Image
                             src={images[currentIndex]}
                             alt={`Slide ${currentIndex + 1}`}
-                            className="w-full h-full object-cover opacity-60"
+                            fill
+                            priority={currentIndex === 0}
+                            className="object-cover opacity-60"
                         />
                     </div>
 

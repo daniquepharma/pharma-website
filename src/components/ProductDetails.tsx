@@ -5,6 +5,7 @@ import { Product } from "@prisma/client";
 import { CheckCircle, Minus, Pill, Plus, ShoppingCart, Truck, ShieldCheck, RefreshCw } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import FormattedDescription from "./FormattedDescription";
 
 export default function ProductDetails({ product }: { product: Product }) {
@@ -33,14 +34,21 @@ export default function ProductDetails({ product }: { product: Product }) {
                 <div className="flex flex-col md:flex-row-reverse gap-4">
                     <div className="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 p-8 flex items-center justify-center h-[400px] md:h-[500px] flex-1 relative">
                         {product.images && product.images.length > 0 ? (
-                            <motion.img
+                            <motion.div
                                 key={selectedImage}
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                src={selectedImage}
-                                alt={product.name}
-                                className="w-full h-full object-contain max-h-[400px]"
-                            />
+                                className="w-full h-full relative"
+                            >
+                                <Image
+                                    src={selectedImage}
+                                    alt={product.name}
+                                    fill
+                                    className="object-contain"
+                                    sizes="(max-width: 768px) 100vw, 50vw"
+                                    priority
+                                />
+                            </motion.div>
                         ) : (
                             <div className="text-slate-700">
                                 <Pill size={120} />
@@ -57,7 +65,7 @@ export default function ProductDetails({ product }: { product: Product }) {
                                     className={`relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-all ${selectedImage === img ? "border-primary" : "border-slate-800 hover:border-slate-600"
                                         }`}
                                 >
-                                    <img src={img} alt={`View ${idx + 1}`} className="w-full h-full object-cover" />
+                                    <Image src={img} alt={`View ${idx + 1}`} fill className="object-cover" sizes="80px" />
                                 </button>
                             ))}
                         </div>

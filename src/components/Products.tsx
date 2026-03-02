@@ -3,6 +3,7 @@
 import Section from "./Section";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Tablet, Syringe, Pill, Beaker, CheckCircle, ShoppingCart, Search, Filter, X } from "lucide-react";
 import { Product } from "@prisma/client";
 import { useCart } from "@/context/CartContext";
@@ -211,10 +212,12 @@ export default function Products({ products = [] }: { products?: Product[] }) {
                                     {/* Product Image */}
                                     <div className="block relative h-48 w-full mb-4 rounded-xl overflow-hidden bg-slate-900 group-hover:bg-slate-800 transition-colors">
                                         {product.images && product.images.length > 0 ? (
-                                            <img
+                                            <Image
                                                 src={product.images[0]}
                                                 alt={product.name}
-                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                                fill
+                                                className="object-cover group-hover:scale-105 transition-transform duration-300"
+                                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                             />
                                         ) : (
                                             <div className="w-full h-full flex items-center justify-center text-slate-700">

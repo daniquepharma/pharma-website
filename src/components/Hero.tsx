@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
@@ -9,10 +10,12 @@ export default function Hero() {
         <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-950">
             {/* Background Image & Overlay */}
             <div className="absolute inset-0 z-0">
-                <img
+                <Image
                     src="/hero_bg.png"
                     alt="Pharmaceutical Background"
-                    className="w-full h-full object-cover opacity-40 mix-blend-overlay"
+                    fill
+                    className="object-cover opacity-40 mix-blend-overlay"
+                    priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/50 to-slate-950" />
             </div>
