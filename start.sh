@@ -10,4 +10,4 @@ npx prisma migrate deploy
 
 # Switch from root to nextjs user to run the server securely
 echo "Starting Next.js..."
-exec su-exec nextjs node server.js
+exec su-exec nextjs env PORT="${PORT:-3000}" NEXTAUTH_URL="${NEXTAUTH_URL:-https://daniquepharma.in}" node server.js
