@@ -15,6 +15,9 @@ const nextConfig: NextConfig = {
       }
     ],
   },
+  env: {
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL || "https://daniquepharma.in",
+  },
 };
 
 export default nextConfig;
