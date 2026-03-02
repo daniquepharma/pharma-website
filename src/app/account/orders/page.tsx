@@ -224,7 +224,7 @@ export default function OrdersPage() {
                                                     <div>
                                                         <span className="text-xs text-slate-500 uppercase tracking-wider font-bold block mb-1">Order ID</span>
                                                         <div className="flex items-center gap-2">
-                                                            <span className="font-mono text-white select-all bg-slate-950 px-3 py-2 rounded-lg border border-slate-800 w-full text-sm">
+                                                            <span className="font-mono text-white select-all bg-slate-950 px-3 py-2 rounded-lg border border-slate-800 w-full text-sm break-all">
                                                                 {order.id}
                                                             </span>
                                                         </div>

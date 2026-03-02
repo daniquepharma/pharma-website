@@ -88,7 +88,7 @@ function NavbarContent() {
                                 className="h-12 w-auto object-contain group-hover:scale-105 transition-transform"
                                 priority
                             />
-                            <span className="font-heading font-bold text-xl tracking-wide text-white group-hover:text-primary transition-colors">
+                            <span className="hidden sm:block font-heading font-bold text-xl tracking-wide text-white group-hover:text-primary transition-colors">
                                 DANIQUE <span className="text-primary">FORMULATIONS</span>
                             </span>
                         </Link>

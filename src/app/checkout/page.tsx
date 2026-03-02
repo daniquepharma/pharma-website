@@ -329,7 +329,7 @@ export default function CheckoutPage() {
 
                     <h1 className="text-4xl font-bold text-white mb-8">Checkout</h1>
 
-                    <div className="grid lg:grid-cols-3 gap-8 flex-col-reverse lg:flex-row">
+                    <div className="flex flex-col-reverse lg:grid lg:grid-cols-3 gap-8">
                         {/* Address Selection / Form */}
                         <div className="lg:col-span-2 space-y-6 order-2 lg:order-1">
                             {/* Saved Addresses */}

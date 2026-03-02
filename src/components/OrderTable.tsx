@@ -92,7 +92,7 @@ export default function OrderTable({ orders }: { orders: OrderWithItems[] }) {
 
             {/* Content */}
             <div className="bg-slate-900 border border-slate-800 rounded-b-xl rounded-tr-xl min-h-[400px]">
-                <div className="overflow-visible">
+                <div className="overflow-x-auto">
                     <table className="w-full text-left">
                         <thead className="bg-slate-950/50 border-b border-slate-800">
                             <tr>

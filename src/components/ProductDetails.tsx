@@ -149,18 +149,18 @@ export default function ProductDetails({ product }: { product: Product }) {
                     </div>
 
                     {/* Trust Badges */}
-                    <div className="grid grid-cols-3 gap-4">
-                        <div className="flex flex-col items-center text-center gap-2 p-4 bg-slate-900/50 rounded-xl">
+                    <div className="grid grid-cols-3 gap-2 sm:gap-4">
+                        <div className="flex flex-col items-center text-center gap-2 p-2 sm:p-4 bg-slate-900/50 rounded-xl">
                             <Truck className="text-primary" size={24} />
-                            <span className="text-xs text-slate-300">Fast Delivery</span>
+                            <span className="text-[10px] sm:text-xs text-slate-300">Fast Delivery</span>
                         </div>
-                        <div className="flex flex-col items-center text-center gap-2 p-4 bg-slate-900/50 rounded-xl">
+                        <div className="flex flex-col items-center text-center gap-2 p-2 sm:p-4 bg-slate-900/50 rounded-xl">
                             <ShieldCheck className="text-primary" size={24} />
-                            <span className="text-xs text-slate-300">Genuine Products</span>
+                            <span className="text-[10px] sm:text-xs text-slate-300">Genuine Products</span>
                         </div>
-                        <div className="flex flex-col items-center text-center gap-2 p-4 bg-slate-900/50 rounded-xl">
+                        <div className="flex flex-col items-center text-center gap-2 p-2 sm:p-4 bg-slate-900/50 rounded-xl">
                             <RefreshCw className="text-primary" size={24} />
-                            <span className="text-xs text-slate-300">Easy Returns</span>
+                            <span className="text-[10px] sm:text-xs text-slate-300">Easy Returns</span>
                         </div>
                     </div>
                 </div>
