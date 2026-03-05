@@ -8,9 +8,6 @@ chmod -R 755 /app/public
 echo "Running Prisma migrations..."
 npx prisma migrate deploy
 
-echo "Seeding Test Data for Razorpay (Upserting)..."
-npm run seed
-
 # Switch from root to nextjs user to run the server securely
 echo "Starting Next.js..."
 exec su-exec nextjs env PORT="${PORT:-3000}" NEXTAUTH_URL="${NEXTAUTH_URL:-https://www.daniquepharma.in}" NEXTAUTH_URL_INTERNAL="${NEXTAUTH_URL_INTERNAL:-http://localhost:${PORT:-3000}}" node server.js
