@@ -98,6 +98,8 @@ export default function Footer() {
                     <div className="flex flex-wrap justify-center gap-4 md:gap-6">
                         <Link href="/privacy" className="text-slate-500 hover:text-primary text-xs transition-colors">Privacy Policy</Link>
                         <Link href="/terms" className="text-slate-500 hover:text-primary text-xs transition-colors">Terms of Service</Link>
+                        <Link href="/refund" className="text-slate-500 hover:text-primary text-xs transition-colors">Cancellation & Refund Policy</Link>
+                        <Link href="/shipping" className="text-slate-500 hover:text-primary text-xs transition-colors">Shipping & Delivery Policy</Link>
                     </div>
                 </div>
             </div>
