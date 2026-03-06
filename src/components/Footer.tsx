@@ -48,13 +48,15 @@ export default function Footer() {
                         </ul>
                     </div>
 
-                    {/* Therapeutic Areas */}
+                    {/* Product Categories */}
                     <div>
-                        <h4 className="font-heading font-bold text-lg text-white mb-6">Therapeutic Areas</h4>
+                        <h4 className="font-heading font-bold text-lg text-white mb-6">Product Categories</h4>
                         <ul className="space-y-3">
-                            {["Orthopedic", "Gynaecology", "Physician", "Speciality Care"].map((item) => (
-                                <li key={item} className="text-slate-400 text-sm">
-                                    {item}
+                            {["Tablets", "Capsules", "Injections", "Syrups", "Gels", "Others"].map((item) => (
+                                <li key={item}>
+                                    <Link href={`/products?category=${item}`} className="text-slate-400 text-sm hover:text-primary transition-colors">
+                                        {item}
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
