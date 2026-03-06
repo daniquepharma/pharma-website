@@ -23,28 +23,8 @@ const images = [
 
 const texts = [
     {
-        title: "Innovating for a Healthier Tomorrow",
-        subtitle: "Advanced Formulation Technologies"
-    },
-    {
-        title: "Excellence in Manufacturing",
-        subtitle: "State-of-the-art Production Facilities"
-    },
-    {
-        title: "Quality You Can Trust",
-        subtitle: "Rigorous Quality Control Standards"
-    },
-    {
-        title: "Wide Range of Solutions",
-        subtitle: "From Tablets to Injectables"
-    },
-    {
-        title: "Dedicated to Life",
-        subtitle: "Committed to Improving Global Health"
-    },
-    {
-        title: "Healthcare for Everyone",
-        subtitle: "Affordable and Accessible Medicines"
+        title: "Wholesale Pharmaceutical Distributor",
+        subtitle: "Danique Formulations is a licensed wholesale distributor of pharmaceutical and healthcare products supplying to licensed pharmacies, hospitals, clinics, and medical institutions."
     }
 ];
 
@@ -103,12 +83,16 @@ export default function HomeCarousel() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.3, duration: 0.8 }}
                             >
-                                <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 drop-shadow-lg">
+                                <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-white mb-6 drop-shadow-2xl">
                                     {currentText.title}
-                                </h2>
-                                <p className="text-lg md:text-xl text-slate-200 font-light tracking-wide max-w-2xl mx-auto">
+                                </h1>
+                                <p className="text-lg md:text-xl text-slate-200 font-light tracking-wide max-w-3xl mx-auto mb-8 leading-relaxed shadow-sm p-4 bg-slate-900/50 backdrop-blur-sm rounded-xl border border-white/10">
                                     {currentText.subtitle}
                                 </p>
+                                <div className="inline-block bg-red-600/90 text-white font-bold px-6 py-4 rounded-xl border-2 border-red-500 shadow-2xl backdrop-blur-md animate-pulse decoration-clone">
+                                    ⚠ We do NOT sell medicines directly to consumers. <br className="hidden md:block" />
+                                    Orders are accepted only from businesses holding valid drug licenses.
+                                </div>
                             </motion.div>
                         </div>
                     </div>
@@ -124,9 +108,9 @@ export default function HomeCarousel() {
                     className="text-center px-4"
                 >
 
-                    <h1 className="font-heading text-3xl md:text-5xl lg:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-300 leading-tight drop-shadow-2xl">
+                    <h2 className="font-heading text-xl md:text-2xl lg:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-300 leading-tight drop-shadow-2xl">
                         HEALING HANDS, CARING HEARTS <br />
-                    </h1>
+                    </h2>
                 </motion.div>
             </div>
 

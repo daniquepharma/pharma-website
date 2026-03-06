@@ -11,9 +11,9 @@ export default function Footer() {
                         <h3 className="font-heading font-bold text-2xl text-white mb-4">
                             DANIQUE <span className="text-primary">FORMULATIONS</span>
                         </h3>
-                        <p className="text-slate-400 text-sm leading-relaxed mb-6">
-                            Empowering healthcare with innovative, accessible, and high-quality medicines.
-                            Healing Hands, Caring Hearts.
+                        <p className="text-slate-400 text-sm leading-relaxed mb-6 font-medium border-l-2 border-primary pl-4">
+                            Danique Formulations is a licensed wholesale distributor.
+                            Medicines are supplied only to licensed pharmacies, hospitals, and authorized distributors.
                         </p>
                         <div className="flex space-x-4">
                             {[Facebook, Twitter, Linkedin, Instagram].map((Icon, i) => (
@@ -35,7 +35,7 @@ export default function Footer() {
                             {[
                                 { name: "Home", href: "/" },
                                 { name: "About Us", href: "/about" },
-                                { name: "Our Vision", href: "/about" },
+                                { name: "Compliance & Licensing", href: "/compliance" },
                                 { name: "Products", href: "/products" },
                                 { name: "Contact Us", href: "/contact" }
                             ].map((item) => (

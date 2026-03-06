@@ -2,7 +2,7 @@
 
 import { useCart } from "@/context/CartContext";
 import { Product } from "@prisma/client";
-import { CheckCircle, Minus, Pill, Plus, ShoppingCart, Truck, ShieldCheck, RefreshCw } from "lucide-react";
+import { CheckCircle, Minus, Pill, Plus, PackagePlus, Truck, ShieldCheck, RefreshCw } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -142,7 +142,7 @@ export default function ProductDetails({ product }: { product: Product }) {
                         >
                             {added ? (
                                 <>
-                                    <CheckCircle size={24} /> Added to Cart
+                                    <CheckCircle size={24} /> Added to Order
                                 </>
                             ) : product.stock <= 0 ? (
                                 <>
@@ -150,7 +150,7 @@ export default function ProductDetails({ product }: { product: Product }) {
                                 </>
                             ) : (
                                 <>
-                                    <ShoppingCart size={24} /> Add to Cart
+                                    <PackagePlus size={24} /> Add to Bulk Order
                                 </>
                             )}
                         </button>

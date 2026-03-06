@@ -4,7 +4,7 @@ import Section from "./Section";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Tablet, Syringe, Pill, Beaker, CheckCircle, ShoppingCart, Search, Filter, X } from "lucide-react";
+import { Tablet, Syringe, Pill, Beaker, CheckCircle, PackagePlus, Search, Filter, X } from "lucide-react";
 import { Product } from "@prisma/client";
 import { useCart } from "@/context/CartContext";
 import { useState, useEffect } from "react";
@@ -255,7 +255,7 @@ export default function Products({ products = [] }: { products?: Product[] }) {
                                             </>
                                         ) : (
                                             <>
-                                                <ShoppingCart size={16} /> Add
+                                                <PackagePlus size={16} /> Bulk Add
                                             </>
                                         )}
                                     </button>

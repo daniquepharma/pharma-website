@@ -2,6 +2,8 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import HomeCarousel from "@/components/HomeCarousel";
+import WholesaleBanner from "@/components/WholesaleBanner";
+import WholesaleCompliance from "@/components/WholesaleCompliance";
 import { Suspense } from "react";
 
 export default function Home() {
@@ -16,7 +18,11 @@ export default function Home() {
         <HomeCarousel />
       </div>
 
-      {/* Content Sections - Preserving Footer */}
+      {/* Content Sections */}
+      <WholesaleBanner />
+      <WholesaleCompliance />
+
+      {/* Footer */}
       <Footer />
     </main>
   );
