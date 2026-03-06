@@ -34,13 +34,6 @@ export default function WholesaleCompliance() {
                             <span className="text-white font-medium text-lg">Authorized Drug Distributors</span>
                         </li>
                     </ul>
-
-                    <div className="mt-6 p-4 bg-primary/10 border border-primary/20 rounded-xl">
-                        <p className="text-primary font-bold flex items-center gap-2">
-                            <FileCheck className="w-5 h-5" />
-                            Customers must provide a valid Drug License before placing an order.
-                        </p>
-                    </div>
                 </div>
 
                 {/* Compliance Section */}

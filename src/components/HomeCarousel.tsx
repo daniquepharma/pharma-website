@@ -89,9 +89,8 @@ export default function HomeCarousel() {
                                 <p className="text-lg md:text-xl text-slate-200 font-light tracking-wide max-w-3xl mx-auto mb-8 leading-relaxed shadow-sm p-4 bg-slate-900/50 backdrop-blur-sm rounded-xl border border-white/10">
                                     {currentText.subtitle}
                                 </p>
-                                <div className="inline-block bg-red-600/90 text-white font-bold px-6 py-4 rounded-xl border-2 border-red-500 shadow-2xl backdrop-blur-md animate-pulse decoration-clone">
-                                    ⚠ We do NOT sell medicines directly to consumers. <br className="hidden md:block" />
-                                    Orders are accepted only from businesses holding valid drug licenses.
+                                <div className="inline-block bg-slate-900/40 text-slate-300 text-sm md:text-base px-5 py-3 rounded-lg border border-slate-700/50 backdrop-blur-md font-medium">
+                                    Please Note: We are a B2B platform. Orders are fulfilled for licensed medical businesses only.
                                 </div>
                             </motion.div>
                         </div>
