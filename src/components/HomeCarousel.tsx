@@ -23,8 +23,28 @@ const images = [
 
 const texts = [
     {
-        title: "Wholesale Pharmaceutical Distributor",
-        subtitle: "Danique Formulations is a licensed wholesale distributor of pharmaceutical and healthcare products supplying to licensed pharmacies, hospitals, clinics, and medical institutions."
+        title: "Innovating for a Healthier Tomorrow",
+        subtitle: "Advanced Formulation Technologies"
+    },
+    {
+        title: "Excellence in Manufacturing",
+        subtitle: "State-of-the-art Production Facilities"
+    },
+    {
+        title: "Quality You Can Trust",
+        subtitle: "Rigorous Quality Control Standards"
+    },
+    {
+        title: "Wide Range of Solutions",
+        subtitle: "From Tablets to Injectables"
+    },
+    {
+        title: "Dedicated to Life",
+        subtitle: "Committed to Improving Global Health"
+    },
+    {
+        title: "Healthcare for Everyone",
+        subtitle: "Affordable and Accessible Medicines"
     }
 ];
 
@@ -83,15 +103,12 @@ export default function HomeCarousel() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.3, duration: 0.8 }}
                             >
-                                <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-white mb-6 drop-shadow-2xl">
+                                <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 drop-shadow-lg">
                                     {currentText.title}
-                                </h1>
-                                <p className="text-lg md:text-xl text-slate-200 font-light tracking-wide max-w-3xl mx-auto mb-8 leading-relaxed shadow-sm p-4 bg-slate-900/50 backdrop-blur-sm rounded-xl border border-white/10">
+                                </h2>
+                                <p className="text-lg md:text-xl text-slate-200 font-light tracking-wide max-w-2xl mx-auto">
                                     {currentText.subtitle}
                                 </p>
-                                <div className="inline-block bg-slate-900/40 text-slate-300 text-sm md:text-base px-5 py-3 rounded-lg border border-slate-700/50 backdrop-blur-md font-medium">
-                                    Please Note: We are a B2B platform. Orders are fulfilled for licensed medical businesses only.
-                                </div>
                             </motion.div>
                         </div>
                     </div>
