@@ -76,7 +76,7 @@ export async function createProduct(formData: FormData) {
     for (const file of files) {
         if (file && file.size > 0 && file.name !== 'undefined') {
             try {
-                const imageUrl = await uploadFileToLocal(file, "products");
+                const imageUrl = await uploadFileToLocal(file, "uploads/products");
                 images.push(imageUrl);
             } catch (error) {
                 console.error("Failed to upload image locally:", error);
@@ -159,7 +159,7 @@ export async function updateProduct(id: string, formData: FormData) {
     for (const file of files) {
         if (file && file.size > 0 && file.name !== 'undefined') {
             try {
-                const imageUrl = await uploadFileToLocal(file, "products");
+                const imageUrl = await uploadFileToLocal(file, "uploads/products");
                 newImages.push(imageUrl);
             } catch (error) {
                 console.error("Failed to upload image locally:", error);

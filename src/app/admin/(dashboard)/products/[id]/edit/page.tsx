@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft, Save, Trash2 } from "lucide-react";
 import { redirect } from "next/navigation";
 import Image from "next/image";
+import RichTextEditor from "@/components/RichTextEditor";
 
 export default async function EditProductPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -33,10 +34,87 @@ export default async function EditProductPage({ params }: { params: Promise<{ id
             </div>
 
             <form action={handleUpdate} className="bg-slate-900 border border-slate-800 rounded-xl p-8 space-y-6">
+
+                <div className="space-y-2">
+                    <label htmlFor="name" className="block text-sm font-medium text-slate-300">
+                        Product Name
+                    </label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        defaultValue={product.name}
+                        required
+                        className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-primary transition-colors"
+                    />
+                </div>
+
+                <div className="grid grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                        <label htmlFor="category" className="block text-sm font-medium text-slate-300">
+                            Category
+                        </label>
+                        <select
+                            id="category"
+                            name="category"
+                            defaultValue={product.category}
+                            className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors appearance-none"
+                        >
+                            <option value="Tablets">Tablets</option>
+                            <option value="Capsules">Capsules</option>
+                            <option value="Injections">Injections</option>
+                            <option value="Syrups">Syrups</option>
+                            <option value="Gels">Gels</option>
+                            <option value="Others">Others</option>
+                        </select>
+                    </div>
+                    <div className="space-y-2">
+                        <label htmlFor="stock" className="block text-sm font-medium text-slate-300">
+                            Available Stock
+                        </label>
+                        <input
+                            type="number"
+                            id="stock"
+                            name="stock"
+                            defaultValue={product.stock}
+                            required
+                            min="0"
+                            className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-primary transition-colors"
+                        />
+                    </div>
+                </div>
+
+                <div className="space-y-2">
+                    <label htmlFor="price" className="block text-sm font-medium text-slate-300">
+                        Price (₹)
+                    </label>
+                    <input
+                        type="number"
+                        id="price"
+                        name="price"
+                        defaultValue={product.price}
+                        required
+                        min="0"
+                        step="0.01"
+                        className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-primary transition-colors"
+                    />
+                </div>
+
+                <div className="space-y-2">
+                    <label htmlFor="description" className="block text-sm font-medium text-slate-300">
+                        Description
+                    </label>
+                    <RichTextEditor
+                        name="description"
+                        defaultValue={product.description}
+                        placeholder="Add rich formatted description..."
+                    />
+                </div>
+
                 {/* Current Images Management */}
-                <div className="space-y-4">
+                <div className="space-y-4 pt-4 border-t border-slate-800">
                     <label className="block text-sm font-medium text-slate-300">
-                        Product Images
+                        Current Images
                     </label>
 
                     {product.images && product.images.length > 0 ? (
