@@ -47,21 +47,16 @@ export default function CompliancePage() {
                             </div>
 
                             <div className="flex items-start gap-3">
-                                <FileCheck className="text-slate-500 w-5 h-5 flex-shrink-0 mt-1" />
-                                <div>
-                                    <h3 className="text-white font-medium">GSTIN</h3>
-                                    <p className="text-slate-400 text-sm mt-1 font-mono bg-slate-950 px-2 py-1 rounded inline-block">
-                                        Applied/Pending
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="flex items-start gap-3">
                                 <ShieldCheck className="text-slate-500 w-5 h-5 flex-shrink-0 mt-1" />
                                 <div>
                                     <h3 className="text-white font-medium">FSSAI License</h3>
-                                    <p className="text-slate-400 text-sm mt-1 font-mono bg-slate-950 px-2 py-1 rounded inline-block">
-                                        Available upon request
+                                    <p className="text-slate-400 text-sm mt-1 mb-2">
+                                        Department Of Food Safety<br />
+                                        Government of Delhi
+                                    </p>
+                                    <p className="font-mono bg-slate-950 px-3 py-2 rounded-lg inline-block border border-slate-800">
+                                        <span className="text-slate-500 text-xs block mb-1">License Number</span>
+                                        <span className="text-primary font-bold tracking-wider">13324011000988</span>
                                     </p>
                                 </div>
                             </div>
