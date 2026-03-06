@@ -62,6 +62,11 @@ COPY --from=builder /app/prisma.config.ts ./prisma.config.ts
 # This is critical for prisma migrate to work in production
 RUN npm install prisma@7.1.0 dotenv@17.2.3
 
+# Backup the original uploads (which might contain licenses from git)
+# Because when Railway mounts the volume, it will hide these. 
+RUN cp -r /app/public/uploads /app/uploads_backup || true
+
+
 # Create the uploads directory and ensure nextjs owns it
 # This prevents EACCES errors when Railway mounts the Volume on top of it
 RUN mkdir -p /app/public/uploads

@@ -1,7 +1,12 @@
 #!/bin/sh
 
 # Railway mounts external volumes as root. We must claim ownership dynamically.
-echo "Fixing volume permissions..."
+echo "Fixing volume permissions and restoring defaults..."
+if [ -d "/app/uploads_backup/license" ]; then
+    echo "Restoring default licenses to volume..."
+    cp -rn /app/uploads_backup/* /app/public/uploads/ 2>/dev/null || true
+fi
+
 chown -R nextjs:nodejs /app/public
 chmod -R 755 /app/public
 

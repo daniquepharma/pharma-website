@@ -81,14 +81,14 @@ export default function LicensesSection() {
                                         <div className="border-t border-slate-800 p-6 bg-slate-900">
                                             <div className="bg-slate-950 rounded-lg overflow-hidden">
                                                 <iframe
-                                                    src={`/uploads/license/${encodeURIComponent(license.filename)}`}
+                                                    src={`/api/uploads/license/${encodeURIComponent(license.filename)}`}
                                                     className="w-full h-[600px] border-0"
                                                     title={license.title}
                                                 />
                                             </div>
                                             <div className="mt-4 flex justify-center">
                                                 <a
-                                                    href={`/uploads/license/${encodeURIComponent(license.filename)}`}
+                                                    href={`/api/uploads/license/${encodeURIComponent(license.filename)}`}
                                                     download
                                                     className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-slate-950 font-bold rounded-lg hover:bg-primary/90 transition-colors"
                                                 >

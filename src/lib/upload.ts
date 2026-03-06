@@ -21,7 +21,7 @@ export async function uploadFileToLocal(file: File, folder: string = 'uploads'):
     const filepath = path.join(uploadDir, filename);
     await fs.promises.writeFile(filepath, buffer);
 
-    return `/${folder}/${filename}`;
+    return `/api/${folder}/${filename}`;
 }
 
 export async function deleteFileFromLocal(fileUrl: string): Promise<void> {
@@ -30,7 +30,9 @@ export async function deleteFileFromLocal(fileUrl: string): Promise<void> {
             return;
         }
 
-        const filepath = path.join(process.cwd(), 'public', fileUrl);
+        // Remove the /api prefix from the URL to map it back to the local file system
+        const localPath = fileUrl.replace(/^\/api/, '');
+        const filepath = path.join(process.cwd(), 'public', localPath);
         if (fs.existsSync(filepath)) {
             await fs.promises.unlink(filepath);
         }
