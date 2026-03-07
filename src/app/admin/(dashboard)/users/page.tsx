@@ -2,6 +2,8 @@ import { getAdminUsers, toggleUserVerification } from "@/app/actions";
 import { Search, CheckCircle, XCircle } from "lucide-react";
 import { revalidatePath } from "next/cache";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminUsersPage({
     searchParams,
 }: {
@@ -88,8 +90,8 @@ export default async function AdminUsersPage({
                                                 <button
                                                     type="submit"
                                                     className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${user.isVerified
-                                                            ? "bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white"
-                                                            : "bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-600 hover:text-white"
+                                                        ? "bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white"
+                                                        : "bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-600 hover:text-white"
                                                         }`}
                                                 >
                                                     {user.isVerified ? "Revoke" : "Approve B2B"}
