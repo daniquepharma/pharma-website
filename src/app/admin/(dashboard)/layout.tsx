@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LayoutDashboard, PlusCircle, ShoppingBag, Package, LogOut } from "lucide-react";
+import { LayoutDashboard, PlusCircle, ShoppingBag, Package, LogOut, Users } from "lucide-react";
 import { logout } from "@/app/actions";
 
 export default function AdminLayout({
@@ -37,6 +37,13 @@ export default function AdminLayout({
                     >
                         <Package size={20} />
                         Orders
+                    </Link>
+                    <Link
+                        href="/admin/users"
+                        className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 transition-colors text-slate-300 hover:text-white"
+                    >
+                        <Users size={20} />
+                        Customers
                     </Link>
                 </nav>
                 <div className="pt-6 border-t border-slate-800 space-y-2">

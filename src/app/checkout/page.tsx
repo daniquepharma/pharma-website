@@ -511,27 +511,40 @@ export default function CheckoutPage() {
                                 </div>
                             )}
 
-                            {/* Place Order Button */}
-                            <form onSubmit={handleSubmit} className="space-y-4">
-                                <div className="flex items-start gap-3 p-4 bg-slate-950 border border-slate-800 rounded-lg">
-                                    <input
-                                        type="checkbox"
-                                        id="checkoutB2bConfirm"
-                                        required
-                                        className="mt-1 w-4 h-4 bg-slate-900 border-slate-700 rounded text-primary focus:ring-primary"
-                                    />
-                                    <label htmlFor="checkoutB2bConfirm" className="text-sm text-slate-400">
-                                        I hereby declare that I am purchasing as a licensed pharmacy, hospital, or authorized medical institution. I understand that this platform does not support retail purchases.
-                                    </label>
+                            {/* Place Order / Verification Check */}
+                            {!session.user?.isVerified ? (
+                                <div className="bg-red-500/10 border border-red-500/50 rounded-lg p-6 text-center space-y-3">
+                                    <h3 className="text-xl font-bold text-red-400">Account Pending Verification</h3>
+                                    <p className="text-slate-300">
+                                        Your wholesale account requires manual verification by an administrator before you can place orders.
+                                        This process ensures regulatory compliance and typically takes up to 24 hours.
+                                    </p>
+                                    <p className="text-sm text-slate-400">
+                                        Please contact support if your account remains unverified.
+                                    </p>
                                 </div>
-                                <button
-                                    type="submit"
-                                    disabled={isSubmitting || !selectedAddressId}
-                                    className="w-full bg-primary text-slate-950 font-bold py-4 rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                                >
-                                    {isSubmitting ? "Processing..." : `Pay ₹${cartTotal.toFixed(2)} & Place Order`}
-                                </button>
-                            </form>
+                            ) : (
+                                <form onSubmit={handleSubmit} className="space-y-4">
+                                    <div className="flex items-start gap-3 p-4 bg-slate-950 border border-slate-800 rounded-lg">
+                                        <input
+                                            type="checkbox"
+                                            id="checkoutB2bConfirm"
+                                            required
+                                            className="mt-1 w-4 h-4 bg-slate-900 border-slate-700 rounded text-primary focus:ring-primary"
+                                        />
+                                        <label htmlFor="checkoutB2bConfirm" className="text-sm text-slate-400">
+                                            I hereby declare that I am purchasing as a licensed pharmacy, hospital, or authorized medical institution. I understand that this platform does not support retail purchases.
+                                        </label>
+                                    </div>
+                                    <button
+                                        type="submit"
+                                        disabled={isSubmitting || !selectedAddressId}
+                                        className="w-full bg-primary text-slate-950 font-bold py-4 rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
+                                        {isSubmitting ? "Processing..." : `Pay ₹${cartTotal.toFixed(2)} & Place Order`}
+                                    </button>
+                                </form>
+                            )}
                         </div>
 
                         {/* Order Summary */}

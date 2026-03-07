@@ -355,3 +355,30 @@ export async function logout() {
     redirect('/admin/login');
 }
 
+// User Admin Actions
+export async function getAdminUsers(search?: string) {
+    const where: Prisma.UserWhereInput = {};
+
+    if (search) {
+        where.OR = [
+            { name: { contains: search, mode: 'insensitive' } },
+            { email: { contains: search, mode: 'insensitive' } },
+            { businessName: { contains: search, mode: 'insensitive' } },
+            { drugLicense: { contains: search, mode: 'insensitive' } }
+        ];
+    }
+
+    return await prisma.user.findMany({
+        where,
+        orderBy: { createdAt: 'desc' }
+    });
+}
+
+export async function toggleUserVerification(userId: string, isVerified: boolean) {
+    await prisma.user.update({
+        where: { id: userId },
+        data: { isVerified }
+    });
+
+    revalidatePath('/admin/users');
+}

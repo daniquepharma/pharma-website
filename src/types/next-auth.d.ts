@@ -10,6 +10,7 @@ declare module "next-auth" {
             businessName?: string | null;
             drugLicense?: string | null;
             gstNumber?: string | null;
+            isVerified: boolean;
         }
     }
 
@@ -17,6 +18,7 @@ declare module "next-auth" {
         businessName?: string | null;
         drugLicense?: string | null;
         gstNumber?: string | null;
+        isVerified: boolean;
     }
 }
 
@@ -26,5 +28,6 @@ declare module "next-auth/jwt" {
         businessName?: string | null;
         drugLicense?: string | null;
         gstNumber?: string | null;
+        isVerified: boolean;
     }
 }

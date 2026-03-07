@@ -19,6 +19,7 @@ model User {
   businessName  String?
   drugLicense   String?
   gstNumber     String?
+  isVerified    Boolean   @default(false)
   image         String?   // Profile picture from Google
   emailVerified DateTime?
   createdAt     DateTime  @default(now())

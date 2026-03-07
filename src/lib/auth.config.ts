@@ -46,6 +46,7 @@ export const authOptions: NextAuthOptions = {
                     businessName: user.businessName,
                     drugLicense: user.drugLicense,
                     gstNumber: user.gstNumber,
+                    isVerified: user.isVerified,
                 };
             },
         }),
@@ -64,6 +65,7 @@ export const authOptions: NextAuthOptions = {
                 token.businessName = session.businessName;
                 token.drugLicense = session.drugLicense;
                 token.gstNumber = session.gstNumber;
+                token.isVerified = session.isVerified;
             }
 
             if (user) {
@@ -71,6 +73,7 @@ export const authOptions: NextAuthOptions = {
                 token.businessName = user.businessName;
                 token.drugLicense = user.drugLicense;
                 token.gstNumber = user.gstNumber;
+                token.isVerified = user.isVerified;
             }
 
             // Handle Google OAuth - create user in DB if doesn't exist
@@ -94,6 +97,7 @@ export const authOptions: NextAuthOptions = {
                     token.businessName = existingUser.businessName;
                     token.drugLicense = existingUser.drugLicense;
                     token.gstNumber = existingUser.gstNumber;
+                    token.isVerified = existingUser.isVerified;
                 }
             }
 
@@ -105,6 +109,7 @@ export const authOptions: NextAuthOptions = {
                 session.user.businessName = token.businessName as string | null | undefined;
                 session.user.drugLicense = token.drugLicense as string | null | undefined;
                 session.user.gstNumber = token.gstNumber as string | null | undefined;
+                session.user.isVerified = token.isVerified as boolean;
             }
             return session;
         },
