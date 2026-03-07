@@ -43,6 +43,9 @@ export const authOptions: NextAuthOptions = {
                     email: user.email,
                     name: user.name,
                     image: user.image,
+                    businessName: user.businessName,
+                    drugLicense: user.drugLicense,
+                    gstNumber: user.gstNumber,
                 };
             },
         }),
@@ -55,9 +58,19 @@ export const authOptions: NextAuthOptions = {
         maxAge: 30 * 24 * 60 * 60, // 30 days
     },
     callbacks: {
-        async jwt({ token, user, account }) {
+        async jwt({ token, user, account, trigger, session }) {
+            // Update token if the session is updated manually
+            if (trigger === "update" && session) {
+                token.businessName = session.businessName;
+                token.drugLicense = session.drugLicense;
+                token.gstNumber = session.gstNumber;
+            }
+
             if (user) {
                 token.id = user.id;
+                token.businessName = user.businessName;
+                token.drugLicense = user.drugLicense;
+                token.gstNumber = user.gstNumber;
             }
 
             // Handle Google OAuth - create user in DB if doesn't exist
@@ -78,6 +91,9 @@ export const authOptions: NextAuthOptions = {
                     token.id = newUser.id;
                 } else {
                     token.id = existingUser.id;
+                    token.businessName = existingUser.businessName;
+                    token.drugLicense = existingUser.drugLicense;
+                    token.gstNumber = existingUser.gstNumber;
                 }
             }
 
@@ -86,6 +102,9 @@ export const authOptions: NextAuthOptions = {
         async session({ session, token }) {
             if (session?.user) {
                 session.user.id = token.id as string;
+                session.user.businessName = token.businessName as string | null | undefined;
+                session.user.drugLicense = token.drugLicense as string | null | undefined;
+                session.user.gstNumber = token.gstNumber as string | null | undefined;
             }
             return session;
         },

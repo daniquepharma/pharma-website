@@ -25,6 +25,7 @@ export const metadata: Metadata = {
 
 import { CartProvider } from "@/context/CartContext";
 import AuthProvider from "@/components/AuthProvider";
+import OnboardingGuard from "@/components/OnboardingGuard";
 
 export default function RootLayout({
   children,
@@ -37,7 +38,9 @@ export default function RootLayout({
         className={`${roboto.variable} ${lato.variable} antialiased bg-slate-950 text-slate-200`}
       >
         <AuthProvider>
-          <CartProvider>{children}</CartProvider>
+          <OnboardingGuard>
+            <CartProvider>{children}</CartProvider>
+          </OnboardingGuard>
         </AuthProvider>
       </body>
     </html>
