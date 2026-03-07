@@ -16,6 +16,9 @@ model User {
   name          String
   password      String?   // Null for Google OAuth users
   phone         String?
+  businessName  String?
+  drugLicense   String?
+  gstNumber     String?
   image         String?   // Profile picture from Google
   emailVerified DateTime?
   createdAt     DateTime  @default(now())

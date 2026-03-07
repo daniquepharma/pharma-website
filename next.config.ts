@@ -16,7 +16,7 @@ const nextConfig: NextConfig = {
     ],
   },
   env: {
-    NEXTAUTH_URL: process.env.NEXTAUTH_URL || "https://www.daniquepharma.in",
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL || (process.env.RAILWAY_PUBLIC_DOMAIN ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}` : "https://www.daniquepharma.in"),
   },
 };
 

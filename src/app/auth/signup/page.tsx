@@ -23,6 +23,9 @@ export default function SignupPage() {
             email: formData.get("email") as string,
             phone: formData.get("phone") as string,
             password: formData.get("password") as string,
+            businessName: formData.get("businessName") as string,
+            drugLicense: formData.get("drugLicense") as string,
+            gstNumber: formData.get("gstNumber") as string,
         };
 
         try {
@@ -134,7 +137,7 @@ export default function SignupPage() {
 
                         <div className="space-y-2">
                             <label className="block text-sm font-medium text-slate-300">
-                                Password
+                                Password *
                             </label>
                             <div className="relative">
                                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={20} />
@@ -147,6 +150,61 @@ export default function SignupPage() {
                                     placeholder="••••••••"
                                 />
                             </div>
+                        </div>
+
+                        <div className="space-y-2 pt-4 border-t border-slate-800">
+                            <h3 className="text-white font-semibold">Business Details (Wholesale Only)</h3>
+                        </div>
+
+                        <div className="space-y-2">
+                            <label className="block text-sm font-medium text-slate-300">
+                                Pharmacy / Business Name *
+                            </label>
+                            <input
+                                type="text"
+                                name="businessName"
+                                required
+                                className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors"
+                                placeholder="e.g. Apollo Pharmacy"
+                            />
+                        </div>
+
+                        <div className="space-y-2">
+                            <label className="block text-sm font-medium text-slate-300">
+                                Drug License / FSSAI Number *
+                            </label>
+                            <input
+                                type="text"
+                                name="drugLicense"
+                                required
+                                className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors"
+                                placeholder="Valid License Number"
+                            />
+                        </div>
+
+                        <div className="space-y-2">
+                            <label className="block text-sm font-medium text-slate-300">
+                                GST Number (Optional)
+                            </label>
+                            <input
+                                type="text"
+                                name="gstNumber"
+                                className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors"
+                                placeholder="GSTIN"
+                            />
+                        </div>
+
+                        <div className="flex items-start gap-3 py-2">
+                            <input
+                                type="checkbox"
+                                name="b2bConfirm"
+                                id="b2bConfirm"
+                                required
+                                className="mt-1 w-4 h-4 bg-slate-950 border-slate-700 rounded text-primary focus:ring-primary"
+                            />
+                            <label htmlFor="b2bConfirm" className="text-sm text-slate-400">
+                                I declare that I am purchasing on behalf of a licensed pharmacy, hospital, or medical institution. I understand that retail purchases for personal use are strictly not supported.
+                            </label>
                         </div>
 
                         <button

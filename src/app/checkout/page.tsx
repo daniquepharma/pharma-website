@@ -512,7 +512,18 @@ export default function CheckoutPage() {
                             )}
 
                             {/* Place Order Button */}
-                            <form onSubmit={handleSubmit}>
+                            <form onSubmit={handleSubmit} className="space-y-4">
+                                <div className="flex items-start gap-3 p-4 bg-slate-950 border border-slate-800 rounded-lg">
+                                    <input
+                                        type="checkbox"
+                                        id="checkoutB2bConfirm"
+                                        required
+                                        className="mt-1 w-4 h-4 bg-slate-900 border-slate-700 rounded text-primary focus:ring-primary"
+                                    />
+                                    <label htmlFor="checkoutB2bConfirm" className="text-sm text-slate-400">
+                                        I hereby declare that I am purchasing as a licensed pharmacy, hospital, or authorized medical institution. I understand that this platform does not support retail purchases.
+                                    </label>
+                                </div>
                                 <button
                                     type="submit"
                                     disabled={isSubmitting || !selectedAddressId}

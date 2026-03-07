@@ -4,11 +4,11 @@ import { prisma } from "@/lib/prisma";
 
 export async function POST(request: Request) {
     try {
-        const { name, email, phone, password } = await request.json();
+        const { name, email, phone, password, businessName, drugLicense, gstNumber } = await request.json();
 
-        if (!name || !email || !password) {
+        if (!name || !email || !password || !businessName || !drugLicense) {
             return NextResponse.json(
-                { error: "Missing required fields" },
+                { error: "Missing required fields: Name, Email, Password, Business Name and Drug License are required." },
                 { status: 400 }
             );
         }
@@ -35,6 +35,9 @@ export async function POST(request: Request) {
                 email,
                 phone,
                 password: hashedPassword,
+                businessName,
+                drugLicense,
+                gstNumber,
             },
         });
 
