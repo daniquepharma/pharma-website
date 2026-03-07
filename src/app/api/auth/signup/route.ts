@@ -48,10 +48,10 @@ export async function POST(request: Request) {
                 email: user.email,
             },
         });
-    } catch (error) {
+    } catch (error: any) {
         console.error("Signup error:", error);
         return NextResponse.json(
-            { error: "Something went wrong" },
+            { error: `Something went wrong: ${error.message || error.toString()}` },
             { status: 500 }
         );
     }
